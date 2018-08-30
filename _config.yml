@@ -7,8 +7,8 @@ github: https://github.com/easiwin
 about: Windows 10 Developer
 mail: walterlv@outlook.com
 
-baseurl: "/Theme"
-url: "https://easiwin.github.io/"
+baseurl: ""
+url: "https://huchengv5.github.io/"
 
 allowsearch: true
 
