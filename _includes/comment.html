@@ -1,12 +1,13 @@
 <div class="disqus-comments">
-    <!-- Disqus Comment -->
+   
     <div id="disqus_thread"></div>
     <script>
     var disqus_config = function () {
     this.page.url = "{{ site.url }}{{ page.url }}";
     this.page.identifier = "{{ page.id }}";
     };
-    (function() { // DON'T EDIT BELOW THIS LINE
+    (function() 
+    { 
     var d = document, s = d.createElement('script');
     s.src = '//{{ site.disqus.name }}.disqus.com/embed.js';
     s.setAttribute('data-timestamp', +new Date());
@@ -14,5 +15,45 @@
     })();
     </script>
     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    <!-- End Disqus Comment -->
+    
 </div>
+
+
+<!-- 
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment(
+  {
+    id: '{{page.title}}', // 可选。默认为 location.href
+    owner: 'lindexi',
+    repo: 'lindexi',
+    title: '{{ page.title }}',
+    oauth: 
+    {
+      client_id: '507fbf76bc9ed48ab9d6',
+      client_secret: 'd02744d5de2daa8657ebfbb6d693276a37301efc',
+    },
+})
+gitment.render('container')
+</script> -->
+
+
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment" style="
+    margin-top: 100px;
+"></div>
+    <script>
+    var valine = new Valine();
+    valine.init({
+        el:'#comment',
+        appId:'BuRiBtuvByVafaziP4gqmd9D-gzGzoHsz',
+        appKey:'BKyVe2VPNHY46SRNkXqJOpyE',
+        notify:true,
+        path: '{{ page.url }}',
+        placeholder:'写下你的评论，这里不受监管',
+        verify: false,
+    })
+    </script>

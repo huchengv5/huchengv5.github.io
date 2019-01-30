@@ -1,15 +1,18 @@
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<!-- <script src="{{ site.baseurl }}/js/jquery.min.js"></script> -->
+<script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.1/jquery-migrate.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<script src="{{ site.baseurl }}/static/js/thickbox-compressed.js"></script>
-<script src="{{ site.baseurl }}/static/js/material.min.js"></script>
-<script src="{{ site.baseurl }}/static/js/main.js"></script>
-<script src="{{ site.baseurl }}/static/js/projects.js"></script>
-<script src="{{ site.baseurl }}/static/js/toc.js"></script>
+<script src="{{ site.baseurl }}/js/thickbox-compressed.js"></script>
+<script src="{{ site.baseurl }}/js/material.min.js"></script>
+<script src="{{ site.baseurl }}/js/main.js"></script>
+<script src="{{ site.baseurl }}/js/projects.js"></script>
+<script src="{{ site.baseurl }}/js/toc.js"></script>
+<script src="{{ site.baseurl }}/js/Base64.js"></script>
+<script src="//cdn.bootcss.com/raphael/2.2.0/raphael-min.js"></script>
+<script src="//cdn.bootcss.com/flowchart/1.6.3/flowchart.js"></script>
 <script>
   // 判断非本机且未使用 https 时，强制重定向到 https。
-  if ((!window.location.host.startsWith("localhost")) && (window.location.protocol != "https:"))
+  if (((!window.location.host.startsWith("localhost")) && (!window.location.host.startsWith("127.0.0.1"))) && (window.location.protocol != "https:"))
     window.location = window.location.toString().replace(/^http:/, "https:");
 </script>
 
@@ -18,3 +21,65 @@
                       $('#toc').toc();
                   });
     </script>
+
+<script>
+	function flow(name,f)
+	{
+                    var chart = flowchart.parse(f);
+                    chart.drawSVG(name, 
+                    {
+                       'x': 30,
+                       'y': 50,
+                      'line-width': 3,
+                      'maxWidth': 3,//ensures the flowcharts fits within a certian width
+                      'line-length': 50,
+                      'text-margin': 10,
+                      'font-size': 14,
+                      'font': 'normal',
+                      'font-family': 'Helvetica',
+                      'font-weight': 'normal',
+                      'font-color': 'black',
+                      'line-color': 'black',
+                      'element-color': 'black',
+                      'fill': 'white',
+                      'yes-text': 'yes',
+                      'no-text': 'no',
+                      'arrow-end': 'block',
+                      'scale': 1,
+                      'symbols': {
+                        'start': {
+                          'font-color': 'red',
+                          'element-color': 'green',
+                          'fill': 'yellow'
+                        },
+                        'end':{
+                          'class': 'end-element'
+                        }
+                      },
+                      'flowstate' : {
+                        'past' : { 'fill' : '#CCCCCC', 'font-size' : 12},
+                        'current' : {'fill' : 'yellow', 'font-color' : 'red', 'font-weight' : 'bold'},
+                        'future' : { 'fill' : '#FFFF99'},
+                        'request' : { 'fill' : 'blue'},
+                        'invalid': {'fill' : '#444444'},
+                        'approved' : { 'fill' : '#58C4A3', 'font-size' : 12, 'yes-text' : 'APPROVED', 'no-text' : 'n/a' },
+                        'rejected' : { 'fill' : '#C45879', 'font-size' : 12, 'yes-text' : 'n/a', 'no-text' : 'REJECTED' }
+                      }
+                  });
+	}
+
+	window.onload = function () 
+	{
+		var cd = document.getElementsByClassName("flow");
+		for (var i = 0; i < cd.length; i++) 
+		{
+			var t = cd[i].getElementsByClassName("flowcode")[0].value;
+			var canvas = "canvas" + i;
+			cd[i].innerHTML = "<div id=\"" + canvas + "\"></div>"
+			flow(canvas, t);
+		}
+        
+	}
+
+
+</script>
