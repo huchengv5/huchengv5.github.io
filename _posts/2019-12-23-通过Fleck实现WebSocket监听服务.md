@@ -6,14 +6,13 @@ CreateTime: 2019-12-23 16:23:3 +0800
 categories: .NET
 ---
 
-Fleck是一个websocket开源框架，通过Fleck，我们可以很轻松的实现WebSocket服务端，可以支持ws或者wss的服务监听；  
-GitHub地址：https://github.com/statianzo/Fleck.git。
+Fleck是一个websocket开源框架，通过Fleck，我们可以很轻松的实现WebSocket服务端；  
+GitHub地址：<https://github.com/statianzo/Fleck.git>。
 
-我们首先在nuget上面搜索Fleck，并安装到我们的工程中。
+我们首先在nuget上面搜索Fleck，并安装到我们的工程中,然后贴上以下关键代码即可：
 
-具体实现方法如下：  
 
-``` cshape
+``` csharp
 
                 var _webSocketServer = new WebSocketServer($"ws://0.0.0.0:{port}")
                 {
