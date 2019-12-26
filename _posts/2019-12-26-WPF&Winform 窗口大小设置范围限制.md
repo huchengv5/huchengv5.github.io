@@ -6,6 +6,8 @@ CreateTime: 2019-12-26 22:23:3 +0800
 categories: .net
 ---
 
+**WPF & Winform 窗口大小设置范围限制**
+
 有个有趣的事情，当我们创建一个WPF窗体时，我们将窗体的大小设置为Width=90,Height=160。在设计器模式下，窗体比例看着很和谐，如下图所示：  
 
 ![待插图]()  
@@ -28,7 +30,7 @@ categories: .net
 
 ```
 
-运行以后，我们发现窗口中的图片居然变形了，look!    
+运行以后，我们发现窗口中的图片居然变形了!    
 
 ![待插图]()  
 
@@ -80,13 +82,13 @@ WPF的窗体高宽设置有bug么？不是所见即所得吗？
 
 ```
 根据以上打印的结果发现：  
-窗口的高度最大值是`SystemParameters.MaximumWindowTrackHeight`  
-窗口的宽度最大值是`SystemParameters.MaximumWindowTrackWidth`  
-窗口的高度最小值是`SystemParameters.MinimumWindowTrackHeight`  
-窗口的宽度最小值是`SystemParameters.MinimumWindowTrackHeight`。
+窗口的高度最大值是`SystemParameters.MaximumWindowTrackHeight`的值；  
+窗口的宽度最大值是`SystemParameters.MaximumWindowTrackWidth`的值；  
+窗口的高度最小值是`SystemParameters.MinimumWindowTrackHeight`的值；  
+窗口的宽度最小值是`SystemParameters.MinimumWindowTrackHeight`的值。
 
 特别注意：该窗口的最小值限制不适用于`WindowStyle.None`的情况。
 
-以上问题同样在Winform中验证过，存在相同的问题。并且在win7和win10不同的操作系统上运行过。
+**以上问题同样在Winform中验证过，存在相同的问题。并且在win7和win10不同的操作系统上运行过。**
 
-总结：导致窗口在设计器模式和运行模式表现不一样的原因是因为因为Windows操作系统的机制原因，限制的窗口的最大值和最小值。而设计器模式时，窗体属于VisualStudio的内部组件，不受窗体大小的限制，所以渲染出来的效果会存在以上比较诡异的差异。
+> 总结：导致窗口在设计器模式和运行模式表现不一样的原因是因为因为Windows操作系统的机制原因，限制的窗口的最大值和最小值。而设计器模式时，窗体属于VisualStudio的内部组件，不受窗体大小的限制，所以渲染出来的效果会存在以上比较诡异的差异。
