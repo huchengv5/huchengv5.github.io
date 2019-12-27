@@ -7,7 +7,8 @@ categories: .NET
 ---
 
 Fleck是一个websocket开源框架，通过Fleck，我们可以很轻松的实现WebSocket服务端；  
-GitHub地址：<https://github.com/statianzo/Fleck.git>。
+GitHub地址：<https://github.com/statianzo/Fleck.git>。  
+现在我们就用它来实现WebSocket基本通讯。
 <!-- more -->
 我们首先在nuget上面搜索Fleck，并安装到我们的工程中,然后贴上以下关键代码即可：
 
