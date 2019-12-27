@@ -10,7 +10,7 @@ categories: .net
 
 有个有趣的事情，当我们创建一个WPF窗体时，我们将窗体的大小设置为Width=90,Height=160。在设计器模式下，窗体比例看着很和谐，如下图所示：  
 
-![待插图]()  
+![](https://i.loli.net/2019/12/27/o4syrJSiMhYpm78.jpg)  
 
 示例代码：
 
@@ -32,12 +32,15 @@ categories: .net
 
 运行以后，我们发现窗口中的图片居然变形了!    
 
-![待插图]()  
+![](https://i.loli.net/2019/12/27/3mpcxr1AuOISGYq.jpg)  
 
 WPF的窗体高宽设置有bug么？不是所见即所得吗？  
-通过snoop看到窗体的ActualWidth并不是90，而是131，此时窗体的Height属性依然是90！
+通过snoop看到窗体的ActualWidth并不是90，此时窗体的Height属性依然是90！如下图所示：  
+注意：在1600 *900 的分辨率下，最小值是136,。1920*1080分辨率下是131。
+![](https://i.loli.net/2019/12/27/5osULrZJ7XMcIbe.jpg)
 
-然后我们把WindowStyle设置成None时，窗口的大小能够顺利的应用90 * 160 的分辨率。嗯，看到这里，好像问题已经解决了，因为WindowStyle非None时，有标题栏。
+然后我们把WindowStyle设置成None时，窗口的大小能够顺利的应用90 * 160 的分辨率。  
+**嗯，看到这里，好像问题已经解决了，因为`WindowStyle`非`None`时，有标题栏。**
 
 但是又继续尝试，将分辨率设置成768 * 1366，同样的，在设计器模式下，图片没有变形，显示正常。  
 
@@ -61,11 +64,13 @@ WPF的窗体高宽设置有bug么？不是所见即所得吗？
         }
 
 ```
-通过断点我们发现，arrangeBounds 和 availableSize 并不等于我们之前设定的Height和Width值。
+**通过断点我们发现，arrangeBounds 和 availableSize 并不等于我们之前设定的Height和Width值。
+
+arrangeBounds 和 availableSize传入过来的参数已经不是我们之前设定的值了，所以计算出来的结果也一定不会是我们之前设定的值，验证失败！**
 
 那么还不行，使用DNspy做源代码调试，一步一步跟进查看问题的根源在哪里。
 
-其调用堆栈：发现GetWindowRect方法被调用，于是使用MoveWindow的方法尝试，结果依然。
+**究其调用堆栈：发现GetWindowRect方法被调用，于是使用MoveWindow的方法尝试，结果依然。**
 
 最后考虑到窗体存在超出显示区的最大值的情况，比如说任务栏，于是通过日志跟踪法，将其窗体的大小打印出来。
 
@@ -87,8 +92,10 @@ WPF的窗体高宽设置有bug么？不是所见即所得吗？
 窗口的高度最小值是`SystemParameters.MinimumWindowTrackHeight`的值；  
 窗口的宽度最小值是`SystemParameters.MinimumWindowTrackHeight`的值。
 
+经过多次反复验证后最终确认问题就是窗体的大小因为操作系统做了限制，并不能随意按照我们设置的高度来应用到窗体。同时，窗体还受`WindowStyle`的属性，标题栏，任务栏等影响。
+
 特别注意：该窗口的最小值限制不适用于`WindowStyle.None`的情况。
 
-**以上问题同样在Winform中验证过，存在相同的问题。并且在win7和win10不同的操作系统上运行过。**
+**为了确保结论正确，以上问题同样在Winform中验证过，存在相同的问题。并且在win7和win10不同的操作系统上运行过。**
 
 > 总结：导致窗口在设计器模式和运行模式表现不一样的原因是因为因为Windows操作系统的机制原因，限制的窗口的最大值和最小值。而设计器模式时，窗体属于VisualStudio的内部组件，不受窗体大小的限制，所以渲染出来的效果会存在以上比较诡异的差异。
