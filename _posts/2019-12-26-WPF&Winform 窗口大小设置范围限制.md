@@ -22,9 +22,9 @@ categories: .net
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="MainWindow" WindowStyle="SingleBorderWindow" Left="0" Top="0" Height="160" Width="90">
-    <Grid>
-        <Image Source="Images/test.png" Stretch="Fill"/>
+        Title="MainWindow" Height="160" Width="90" WindowStyle="SingleBorderWindow" ResizeMode="NoResize" >
+    <Grid Background="Gray">
+        <Image Source="Images/test.jpg" Stretch="Fill"/>
     </Grid>
 </Window>
 
@@ -36,8 +36,11 @@ categories: .net
 
 WPF的窗体高宽设置有bug么？不是所见即所得吗？  
 通过snoop看到窗体的ActualWidth并不是90，此时窗体的Height属性依然是90！如下图所示：  
-注意：在1600 *900 的分辨率下，最小值是136,。1920*1080分辨率下是131。
-![](https://i.loli.net/2019/12/27/5osULrZJ7XMcIbe.jpg)
+  
+
+![](https://i.loli.net/2019/12/27/5osULrZJ7XMcIbe.jpg)  
+
+**注意：在1600 * 900 的分辨率下，最小值是136,。1920 * 1080分辨率下是131。**
 
 然后我们把WindowStyle设置成None时，窗口的大小能够顺利的应用90 * 160 的分辨率。  
 **嗯，看到这里，好像问题已经解决了，因为`WindowStyle`非`None`时，有标题栏。**
@@ -64,7 +67,7 @@ WPF的窗体高宽设置有bug么？不是所见即所得吗？
         }
 
 ```
-**通过断点我们发现，arrangeBounds 和 availableSize 并不等于我们之前设定的Height和Width值。
+通过断点我们发现，arrangeBounds 和 availableSize 并不等于我们之前设定的Height和Width值。
 
 arrangeBounds 和 availableSize传入过来的参数已经不是我们之前设定的值了，所以计算出来的结果也一定不会是我们之前设定的值，验证失败！**
 
