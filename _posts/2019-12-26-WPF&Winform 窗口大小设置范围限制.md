@@ -7,7 +7,7 @@ categories: .net
 ---
 
 **WPF & Winform 窗口大小设置范围限制**
-
+<!-- more -->
 有个有趣的事情，当我们创建一个WPF窗体时，我们将窗体的大小设置为Width=90,Height=160。在设计器模式下，窗体比例看着很和谐，如下图所示：  
 
 ![](https://i.loli.net/2019/12/27/o4syrJSiMhYpm78.jpg)  
