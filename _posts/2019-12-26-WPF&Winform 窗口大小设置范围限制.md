@@ -1,5 +1,5 @@
 ---
-title: "WPF & Winform 窗口大小设置范围限制"
+title: "WPF & Winform 窗口大小设置范围限制引发的惨案"
 author: 胡承
 date: 2019-12-26 22:23:3 +0800
 CreateTime: 2019-12-26 22:23:3 +0800
