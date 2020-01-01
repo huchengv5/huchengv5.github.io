@@ -100,10 +100,9 @@ int类型6322转成byte[]后，在java中的表示形式为：{-78,24,0,0},在�
 
 **解决问题**
 
-问题清楚了，在java中主要是需要解决负数表示的问题，所以我们只需要在最高位上处理负数的问题，也就是第一个字节位。只需要在第一个字节上面，加上0xFF与运算。
+问题清楚了，在java中主要是需要解决负数表示的问题，因为负数的补位和正数是不一样的。如果是左移`<<`，那么就是用0补位。如果是右移`>>`,那么就是用1补位。正因为如此，才导致了移位运算后，结果不符合预期。  
+所以我们需要加上0xFF与运算,用0xFF做运算的主要目的是取高位，让byte负数的表示，还原成int的正数表示。
 具体代码如下：
-
-// `10110010 00011000 00000000 00000000`
 
 ```java
         /// <summary>
@@ -114,7 +113,7 @@ int类型6322转成byte[]后，在java中的表示形式为：{-78,24,0,0},在�
         /// <returns></returns>
         public static int ToInt32(byte[] data, int offset)
         {
-            return (int)(data[offset++] & 0xFF | data[offset++] << 8 | data[offset++] << 16 | data[offset] << 24);
+            return (int)((data[offset++] & 0xFF) | ((data[offset++] & 0xFF) << 8) | ((data[offset++] & 0xFF) << 16) | ((data[offset] & 0xFF) << 24));
         }
 ```
 
