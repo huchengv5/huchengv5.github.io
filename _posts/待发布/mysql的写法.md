@@ -1,9 +1,14 @@
 
 -- 第一步：创建临时表
+```sql
+
 CREATE TEMPORARY TABLE
 IF
 	NOT EXISTS tmpInfoSize ( materialSize VARCHAR ( 100 ) NOT NULL, CLIENT_ID VARCHAR ( 100 ) NOT NULL );
 TRUNCATE TABLE tmpInfoSize; -- 删除临时表中数据
+
+```
+
 
 -- 第二步：生成sql语句，用来将符合要求的数据插入到临时表
 SELECT
