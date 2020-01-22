@@ -66,6 +66,10 @@ drop function [ schema_name. ] function_name;
 ```
 *`如果数据库中存在多个数据库的情况下，程序集已经创建，那么只需要对其它为创建函数的数据库增加函数即可。`*
 
+参考文献：  
+[设计程序集 - SQL Server](https://docs.microsoft.com/zh-cn/sql/relational-databases/clr-integration/assemblies-designing?redirectedfrom=MSDN&view=sql-server-ver15)  
+[clr enabled 服务器配置选项 - SQL Server](https://docs.microsoft.com/zh-cn/sql/database-engine/configure-windows/clr-enabled-server-configuration-option?redirectedfrom=MSDN&view=sql-server-ver15)  
+
 ---------------------------------
 ## **对应的C#代码**  
 *编译后的`dll`命名为`Encrypt.dll`,类名为`EncryptProvider`,命名空间为`Encrypt`，创建函数时需要以`命名空间`.`类名`.`方法名`的方式表示*
@@ -136,12 +140,16 @@ drop function [ schema_name. ] function_name;
         }
 ```
 
-## **CREATE ASSEMBLY 权限设置**
+### **CREATE ASSEMBLY 权限设置**
 
 权限包含有：`SAFE`，`UNSAFE`，`EXTERNAL_ACCESS`，通过 `WITH PERMISSION_SET`  来指定。  
+
 **各权限说明：**  
+
 `SAFE`：使用具有 SAFE 权限的程序集运行的代码不能访问外部系统资源（例如文件、网络、环境变量或注册表）。 SAFE 代码可以从本地 SQL Server 数据库访问数据，或执行不涉及访问本地数据库以外资源的计算和业务逻辑。大多数程序集执行计算和数据管理任务，而不需要访问 SQL Server 以外的资源。 因此，建议您将 SAFE 作为程序集权限集。  
+
 `EXTERNAL_ACCESS`：EXTERNAL_ACCESS 允许程序集访问某些外部系统资源（例如文件、网络、Web 服务、环境变量和注册表）。 只有具有 EXTERNAL ACCESS 权限的 SQL Server 登录名才能创建 EXTERNAL_ACCESS 程序集。SAFE 和 EXTERNAL_ACCESS 程序集只能包含可验证为类型安全的代码。 这意味着这些程序集仅可以通过对类型定义有效的具有定义完善的入口点来访问类。 因此，它们不能随意访问不属于该代码所有的内存缓冲区。 另外，它们不能执行可能对 SQL Server 进程的可靠性具有负面影响的操作。  
+
 `UNSAFE`：UNSAFE 不限制程序集访问资源，包括 SQL Server 以内和以外的资源。 在 UNSAFE 程序集内运行的代码可以调用非托管代码。同时，指定 UNSAFE 将允许程序集中的代码执行 CLR 验证工具认为是非安全类型的操作。 这些操作可能以非控制的方式访问 SQL Server 进程空间中的内存缓冲区。 UNSAFE 程序集也可能破坏 SQL Server 或公共语言运行时的安全系统。 有经验的开发人员或管理员应仅向高度可信的程序集授予 UNSAFE 权限。 只有的成员sysadmin固定的服务器角色可以创建 UNSAFE 程序集。  
 
 ----------------------------
@@ -171,8 +179,4 @@ ALTER DATABASE dbName SET TRUSTWORTHY ON
 ```
 ------------------
 参考文献：  
-[设计程序集 - SQL Server](https://docs.microsoft.com/zh-cn/sql/relational-databases/clr-integration/assemblies-designing?redirectedfrom=MSDN&view=sql-server-ver15)  
-[clr enabled 服务器配置选项 - SQL Server](https://docs.microsoft.com/zh-cn/sql/database-engine/configure-windows/clr-enabled-server-configuration-option?redirectedfrom=MSDN&view=sql-server-ver15)  
 [TRUSTWORTHY 数据库属性 - SQL Server](https://docs.microsoft.com/zh-cn/sql/relational-databases/security/trustworthy-database-property?redirectedfrom=MSDN&view=sql-server-ver15)  
-
-------------------------------------------------------
