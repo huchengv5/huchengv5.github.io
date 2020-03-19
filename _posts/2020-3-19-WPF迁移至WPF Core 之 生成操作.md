@@ -14,6 +14,8 @@ categories: C# .net Core
 
 为什么会变得如此清爽？因为繁杂的配置都丢`<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">`里面了。
 
+原理参见：<https://blog.lindexi.com/post/WPF-%E8%AE%B2%E8%AE%B2-Microsoft.NET.Sdk.WindowsDesktop-%E7%9A%84%E5%8E%9F%E7%90%86.html>。
+
 包括`AssemblyInfo.cs`文件也变得非常简单了，因为它部分内容也放到公共部分了。（这些本次不讨论）
 
 实际上迁移过程中，绝大部分的文件，我们都可以直接迁移过来，当我们在编译的时候，就会发现有些编译不通过，比较常见的问题就是类找不到，通常只需要寻找nuget包即可解决，vs会有提示。
