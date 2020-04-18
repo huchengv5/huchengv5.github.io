@@ -40,7 +40,7 @@ WPF有段时间没有做界面了，温故而知新，重新复习下模版相�
 
 代码其实很简单，我们给ToggleButton定义了一个Style样式，重写了Template的模版属性。
 
-这里我们重点看下`Border`的`Background`属性中，我们是使用`TemplateBinding`。这样我们在后面的`Style.Triggers`中，才可以修改`IsMouseOver`和`IsPressed`的颜色。
+这里我们重点看下`Border`的`Background`属性中，我们是使用`TemplateBinding`。这样我们在后面的`Style.Triggers`中，才可以修改`IsMouseOver`和`IsPressed`触发器中设置的背景颜色。
 
-控件默认的颜色设置是通过`VisualStateManager`来修改的，如果我们不使用`TemplateBinding`来绑定`Background`的话，我们就无法修改到原有的依赖项属性值，这也就导致我们的修改无效。
+控件默认的颜色设置是通过`VisualStateManager`来修改的，如果我们不使用`TemplateBinding`来绑定`Background`的话，我们就无法修改到原有的依赖项属性值，从而导致我们的修改无效。
 
