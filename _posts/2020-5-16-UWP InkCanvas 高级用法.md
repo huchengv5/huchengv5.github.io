@@ -89,7 +89,7 @@ WetStrokeCompleted
 
 ```
 
-## 这里值得一提的是，我们发现WetStrokeStopping和StrokeEnded事件触发顺序可能会出现不一致的情况。这是因为CoreWetStrokeUpdateSource下的事件和StrokeInput下的事件并不是在同一个线程，CoreWetStrokeUpdateSource的事件在触摸线程中触发，而StrokeInput事件是在主线程上触发。##
+#### 这里值得一提的是，我们发现WetStrokeStopping和StrokeEnded事件触发顺序可能会出现不一致的情况。这是因为CoreWetStrokeUpdateSource下的事件和StrokeInput下的事件并不是在同一个线程，CoreWetStrokeUpdateSource的事件在触摸线程中触发，而StrokeInput事件是在主线程上触发。####
 
 核心的事件都了解了，我们围绕这些事件就可以扩展各种业务逻辑了。
 
