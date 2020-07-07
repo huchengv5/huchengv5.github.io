@@ -1,0 +1,9 @@
+win2d性能测试
+
+循环1000次调用DrawInk （50ms） 和 一次调用DrawInk分别绘制1000条线(5ms)，前者需要的时间是后者的10倍
+
+循环1000次，调用 DrawInk 时间约570ms
+
+循环1000次 DrawGeometry 输入同样的Ink 时间月12472ms
+
+使用RenderTarget，通过DrawImage绘制，循环1000次 仅 9ms
