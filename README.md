@@ -1,4 +1,4 @@
-本文告诉大家如何使用这个博客主题搭建自己的博客。这个主题是由 [吕毅 - walterlv](https://walterlv.github.io/ )大神基于[hcz-jekyll-blog](https://codeasashu.github.io/hcz-jekyll-blog/) 修改出来的，可以用于手机端和pc端。
+本文告诉大家如何使用这个博客主题搭建自己的博客。这个主题是由 [吕毅 - walterlv](https://walterlv.github.io/ )基于[hcz-jekyll-blog](https://codeasashu.github.io/hcz-jekyll-blog/) 修改出来的，可以用于手机端和pc端。
 
 <!--more-->
 <div id="toc"></div>
@@ -83,9 +83,9 @@ git push origin master
 
 博客使用的评论是 [disqus](https://disqus.com) ，请自己去申请账号，然后在`_config.yml`写自己的名字，这样就好啦。
 
-如果有什么问题，欢迎联系我 lindexi_gd@163.com 
+如果有什么问题，欢迎联系我 237059917@qq.com 
 
-参见：[吕毅 - walterlv](https://walterlv.github.io/ )
+参见：[胡承 - huchengv5](https://huchengv5.github.io/ )
 
 [简单搭建自己的博客](https://lindexi.gitee.io/lindexi//post/%E7%AE%80%E5%8D%95%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B
 
