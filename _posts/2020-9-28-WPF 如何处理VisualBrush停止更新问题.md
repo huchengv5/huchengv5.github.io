@@ -1,8 +1,8 @@
 ---
 title: "WPF 如何处理VisualBrush停止更新问题"
 author: 胡承
-date: 2020-09-28 22:35:3 +0800
-CreateTime: 2020-09-28 22:35:3 +0800
+date: 2020-09-28 9:35:3 +0800
+CreateTime: 2020-09-28 9:35:3 +0800
 categories: C# .NET WPF
 ---
 
