@@ -12,7 +12,7 @@ WPF中的依赖项属性的AddOwner与OverrideMetadata有何区别？什么情�
 
 依赖项属性是WPF框架中非常核心的属性，相比传统属性提供了丰富的功能。如：内置绑定支持，渲染行为支持，动画支持等等。
 
-1. `DependencyProperty.AddOwner`
+### 1、 `DependencyProperty.AddOwner`
 
 顾名思义，`AddOwner`，就是给当前的依赖项属性添加“所有者”或者“拥有者”。也就是说，它的主要作用是给新的类型，定义相同的依赖项属性，从而省去了我们自己通过`DependencyProperty.Registry`方式进行注册。实际上两者的效果是差不多的，都是给指定的类型定义一个依赖项属性。
 
@@ -26,7 +26,7 @@ WPF中的依赖项属性的AddOwner与OverrideMetadata有何区别？什么情�
 
 所以我们在使用`AddOwner`方法时，是我们想要注册的属性，在现有的依赖项属性中已经存在注册了，并且两者的行为功能一致的情况下即可使用。
 
-2. `DependencyProperty.OverrideMetadata`
+### 2、 `DependencyProperty.OverrideMetadata`
 
 同样的，`OverrideMetadata`从字面上看，是重写元数据。它主要是用于现有的依赖项属性的元数据进行修改。
 
@@ -38,7 +38,7 @@ WPF中的依赖项属性的AddOwner与OverrideMetadata有何区别？什么情�
 
 如基类元数据类型是`FrameworkPropertyMetadata`,那我们重写的时候也必须是这个类型。默认情况下是`PropertyMetadata`。这种情况下会导致错误，需要注意一下。
 
-3. 两者区别
+### 3、 两者区别
 
 `AddOwner`是`OverrideMetadata`和添加`PropertyFromName`哈希表的合集，`OverrideMetadata`是把当前元数据和继承体系中最近的父类的依赖属性的元数据`PropertyChangedCallback`进行合并，`CoerceCallback`进行取舍。`AddOwner`调用的过程中会调用`OverrideMetadata`方法。
 
