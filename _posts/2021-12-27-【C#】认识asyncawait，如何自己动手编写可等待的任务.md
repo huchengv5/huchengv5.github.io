@@ -10,13 +10,31 @@ C#里面的`async/await`语法简直好用的不要不要的。但是，如果�
 
 <!-- more -->
 
-话不多说，先看代码。
-为了简化描述，详细讲解，请看注释描述。
+要让编译器识别async await 语法首先需要具备以下条件：  
+1、 可等待的对象，需要实现`T GetAwaiter();`方法。注意：`T`可以是任何类型，不一定是`object`类型。
+
+可等待对象`无返回值`需要满足的条件：
+1）、继承接口`INotifyCompletion`或实现`void OnCompleted(Action continuation);`方法。  
+2）、实现`bool IsCompleted { get; }`属性。
+3）、实现`void GetResult();`方法。
+        
+可等待对象`带返回值`需要满足的条件：
+1）、继承接口`INotifyCompletion`或实现`void OnCompleted(Action continuation);`方法。  
+2）、实现`bool IsCompleted { get; }`属性。
+3）、实现`T GetResult();`方法。`T`可以是任意类型。
+        
+具备上述条件，你的代码就可以顺利编译通过了。但是此时的代码，还不能工作，因为你还没有给状态机增加状态！
+
+为了增加这个状态，我们增加一个方法`void ReportCompleted(T result);`，用来更改状态机的状态值，表示我们要执行的异步操作是否已完成。
+
+具体代码，如下所示：
+
+**`相关的接口定义:`**
 
 ```cs
 
     /// <summary>
-    /// 
+    /// 带返回值的可等待对象
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public interface IAwaitable<T> : INotifyCompletion
@@ -28,7 +46,7 @@ C#里面的`async/await`语法简直好用的不要不要的。但是，如果�
     }
 
     /// <summary>
-    /// 
+    /// 不带返回值的可等待对象
     /// </summary>
     public interface IAwaitable : INotifyCompletion
     {
@@ -38,7 +56,7 @@ C#里面的`async/await`语法简直好用的不要不要的。但是，如果�
     }
 
     /// <summary>
-    /// 
+    /// 获取可等待者
     /// </summary>
     public interface IAwaiter
     {
@@ -46,7 +64,7 @@ C#里面的`async/await`语法简直好用的不要不要的。但是，如果�
     }
 
     /// <summary>
-    /// 
+    /// 获取可等待者
     /// </summary>
     public interface IAwaiter<T>
     {
@@ -56,6 +74,10 @@ C#里面的`async/await`语法简直好用的不要不要的。但是，如果�
 ```
 
 ```cs
+
+    /// <summary>
+    /// 不带返回值的可等待的任务
+    /// </summary>
     public class AwaitableTask : IAwaiter
     {
         public AwaitableTask()
@@ -63,14 +85,23 @@ C#里面的`async/await`语法简直好用的不要不要的。但是，如果�
             AwaitableObject = new AwaitableObject();
         }
 
+        /// <summary>
+        /// 获取可等待的对象
+        /// </summary>
         public IAwaitable GetAwaiter()
         {
             return AwaitableObject;
         }
 
+        /// <summary>
+        /// 实现相关接口的可等待的对象
+        /// </summary>
         public AwaitableObject AwaitableObject { get; private set; }
     }
 
+    /// <summary>
+    /// 带返回值的可等待的任务
+    /// </summary>
     public class AwaitableTask<T> : IAwaiter<T>
     {
         public AwaitableTask()
@@ -89,6 +120,9 @@ C#里面的`async/await`语法简直好用的不要不要的。但是，如果�
 
 ```cs
 
+    /// <summary>
+    /// 不带返回值的可等待的状态对象
+    /// </summary>
     public class AwaitableObject : Awaitable, IAwaitable
     {
         public void GetResult()
@@ -97,6 +131,9 @@ C#里面的`async/await`语法简直好用的不要不要的。但是，如果�
         }
     }
 
+    /// <summary>
+    /// 带返回值的可等待的状态对象
+    /// </summary>
     public class AwaitableObject<T> : Awaitable, IAwaitable<T>
     {
         public T Result { get; private set; }
@@ -113,6 +150,9 @@ C#里面的`async/await`语法简直好用的不要不要的。但是，如果�
         }
     }
 
+    /// <summary>
+    /// 可等待的抽象类，状态机的具体实现
+    /// </summary>
     public abstract class Awaitable
     {
         private Action _continuation;
@@ -137,6 +177,7 @@ C#里面的`async/await`语法简直好用的不要不要的。但是，如果�
             }
         }
 
+        //用于通知，当前任务已经完成。
         public void ReportCompleted()
         {
             lock (_locker)
@@ -148,6 +189,7 @@ C#里面的`async/await`语法简直好用的不要不要的。但是，如果�
             }
         }
 
+        //重置状态，让状态机恢复可等待
         public void Reset()
         {
             lock (_locker)
@@ -160,7 +202,6 @@ C#里面的`async/await`语法简直好用的不要不要的。但是，如果�
     }
 
 ```
-未完待续……
 
 欢迎转载分享，请关注微信公众号，将同步更新博客，方便查看！
 
