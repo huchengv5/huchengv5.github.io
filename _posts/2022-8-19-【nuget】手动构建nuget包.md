@@ -8,7 +8,7 @@ categories: C# WPF
 
 在.net core 的版本上，visual studio 已经提供了自动打包的功能。当然，在.NET Framework的版本上也是可以的，不过需要收到修改proj文件才行，这里先不做讨论。
 
-<!--more-->
+<!-- more -->
 
 在Visual Studio不具备一键打包的功能时，我们可以使用第三方软件来实现nuget包的打包。
 
