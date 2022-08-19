@@ -1,8 +1,8 @@
 ---
 title: "手动构建nuget包"
 author: 胡承
-date: 2022-08-19 09:10:3 +0800
-CreateTime: 2022-08-19 09:10:3 +0800
+date: 2022-08-19 09:12:3 +0800
+CreateTime: 2022-08-19 09:12:3 +0800
 categories: C# WPF
 ---
 
