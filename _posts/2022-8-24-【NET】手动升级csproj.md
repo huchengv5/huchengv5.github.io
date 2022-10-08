@@ -83,5 +83,29 @@ dotnet restore -r win7-x64
 ```
 
 ### **五、.NET Framework v4.5.2 基于netstandar无法编译通过**
-
+*<font color=green>
 netstandar 不支持.net framework v4.5.2，升级到.net framework v4.6.1 以上即可。
+</font>*
+
+### **六、动态库的引用差异**
+
+1. .NET6中不需要额外引用`System.Web.dll`，直接`Using System.Web`的命名空间即可
+1. `System.Windows.Form.MenuItem` 使用 `ToolStripMenuItem` 代替
+1. `System.Windows.Interactivity.dll`使用`System.Windows.Interactivity.WPF` nuget包代替
+1. `System.Drawing.dll` 使用 `System.Drawing.Common` nuget包代替
+1. `NotifyIcon.ContextMenu` 使用 `NotifyIcon.ContextMenuStrip` 代替
+1. `ContextMenu` 使用 `ContextMenuStrip` 代替
+
+
+关于手动升级到新版的`csproj`文件格式，网上有较多教程，我这边就不列出来了。
+主要有两种方式：
+1. 通过工具升级
+1. 手动修改`csproj`文件
+
+本博客会持续更新~
+
+<a href="https://huchengv5.gitee.io/">博客链接1</a>
+
+<a href="https://huchengv5.github.io/">博客链接2</a>
+
+![承哥技术交流小作坊](https://i.loli.net/2021/09/27/FmsaLU1Oo7tX8kl.jpg)
