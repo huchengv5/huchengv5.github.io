@@ -1,8 +1,8 @@
 ---
 title: "WebView2的踩坑记"
 author: 胡承
-date: 2022-10-08 09:12:3 +0800
-CreateTime: 2022-10-08 09:12:3 +0800
+date: 2022-11-08 09:12:3 +0800
+CreateTime: 2022-11-08 09:12:3 +0800
 categories: C# WPF
 ---
 
@@ -42,7 +42,8 @@ WebView2已经在项目上用上了，这里记录下它目前存在的几个坑
 ```
 2. 关闭智能拦截器
 ```cs
-    //该属性默认为True，该属性只有高版本才支持
+    //该属性默认为True，该属性只有高版本(1.0.1414,1.0.1466或以上)才支持
+    //参见：https://learn.microsoft.com/zh-cn/microsoft-edge/webview2/release-notes?tabs=dotnetcsharp
     CoreWebView2Settings.IsReputationCheckingRequired =false;
 ```
 
