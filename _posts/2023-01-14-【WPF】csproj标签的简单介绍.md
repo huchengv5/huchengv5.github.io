@@ -1,8 +1,8 @@
 ---
 title: "csproj标签的简单介绍"
 author: 胡承
-date: 2023-01-13 09:12:3 +0800
-CreateTime: 2023-01-13 09:12:3 +0800
+date: 2023-01-14 09:12:3 +0800
+CreateTime: 2023-01-14 09:12:3 +0800
 categories: C# WPF
 ---
 
@@ -66,10 +66,8 @@ categories: C# WPF
 </Project>
 ```
 
-**欢迎转载分享，如若转载，请标注署名。**
-
-博客链接2：https://huchengv5.github.io/
-
 微信公众号：
 
 ![承哥技术交流小作坊](https://i.loli.net/2021/09/27/FmsaLU1Oo7tX8kl.jpg)
+
+**欢迎转载分享，如若转载，请标注署名。**
