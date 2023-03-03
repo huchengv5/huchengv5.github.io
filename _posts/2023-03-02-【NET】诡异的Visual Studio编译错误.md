@@ -6,9 +6,11 @@ CreateTime: 2023-03-02 09:12:3 +0800
 categories: C# WPF
 ---
 
-使用`Visual Studio 2022 17.5.1`版本编译项目的时候，意外发现时不时会出现`System.ArgumentException: 路径中具有非法字符`的编译错误。但后续编译一切正常，重启`Visual Studio`后，发现有的项目无法正常加载了！
+诡异的Visual Studio编译错误，非代码级编译错误！
 
 <!-- more -->
+
+使用`Visual Studio 2022 17.5.1`版本编译项目的时候，意外发现时不时会出现`System.ArgumentException: 路径中具有非法字符`的编译错误。但后续编译一切正常，重启`Visual Studio`后，发现有的项目无法正常加载了！
 
 除了这种情况以外，还会提示其它错误：`“Persistence = ProjectFileWithInterceptionViaSnapshot”没有项目属性提供程序。`。
 
