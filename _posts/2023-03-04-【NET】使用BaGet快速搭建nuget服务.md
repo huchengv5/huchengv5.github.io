@@ -97,6 +97,10 @@ categories: C# WPF
 ## 配置Visual Studio中的Nuget配置
 在Visual Studio 包管理器中，添加`http://192.168.1.221:5000/v3/index.json`这样子的链接。IP地址可以根据实际部署的`IP`或者`域名`进行修改。
 
+## 使用浏览器打开Nuget管理页面
+
+通过浏览器，输入我们配置的Url  http://192.168.1.221:5000/，打开即可。
+
 微信公众号：
 
 ![承哥技术交流小作坊](https://i.loli.net/2021/09/27/FmsaLU1Oo7tX8kl.jpg)
