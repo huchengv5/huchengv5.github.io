@@ -203,6 +203,88 @@ C#里面的`async/await`语法简直好用的不要不要的。但是，如果�
 
 ```
 
+示例：
+
+```cs
+
+    public class TestElement : UIElement
+    {
+        //实例化一个可等待任务
+        AwaitableTask _awaitableTask = new AwaitableTask();
+
+        /// <summary>
+        /// 指定的资源的路径
+        /// </summary>
+        public string SourceUri
+        {
+            get { return (string)GetValue(SourceUriProperty); }
+            set { SetValue(SourceUriProperty, value); }
+        }
+
+        private ImageSource gifSource;
+
+        public static readonly DependencyProperty SourceUriProperty = DependencyProperty.Register(nameof(SourceUri), typeof(string), typeof(TestElement), new PropertyMetadata(string.Empty, async (s, e) =>
+        {
+            var loc = s as TestElement;
+            loc.gifSource = await LoadGifSourceAsync(e.NewValue as string);
+            loc._awaitableTask.AwaitableObject?.ReportCompleted();
+        }));
+
+        public static async Task<ImageSource> LoadGifSourceAsync(string url)
+        {
+            await Task.Delay(500);
+            return new BitmapImage(new Uri(url));
+        }
+
+        /// <summary>
+        /// 等待源数据加载完成，对外开放的方法
+        /// </summary>
+        /// <returns></returns>
+        public async Task WaitForLoaded()
+        {
+            await _awaitableTask;
+        }
+
+        public bool Do()
+        {
+            if (gifSource != null)
+                return true;            
+            return false;
+        }
+    }
+
+    public class TestClass
+    {
+        public TestClass()
+        {
+            TestForNotWait();
+            TestForWait();
+        }
+
+
+        public async void TestForWait()
+        {
+            TestElement testElement = new TestElement
+            {
+                SourceUri = @"D:\Users\huc\Pictures\Saved Pictures\1.jpeg"
+            };
+            await testElement.WaitForLoaded();
+            Console.WriteLine("TestForWait Result:" + testElement.Do());
+        }
+
+        public void TestForNotWait()
+        {
+            TestElement testElement = new TestElement
+            {
+                SourceUri = @"D:\Users\huc\Pictures\Saved Pictures\1.jpeg"
+            };
+
+            Console.WriteLine("TestForNotWait Result:" + testElement.Do());            
+        }
+    }
+        
+```
+
 欢迎转载分享，请关注微信公众号，将同步更新博客，方便查看！
 
 ![承哥技术交流小作坊](https://i.loli.net/2021/09/27/FmsaLU1Oo7tX8kl.jpg)
