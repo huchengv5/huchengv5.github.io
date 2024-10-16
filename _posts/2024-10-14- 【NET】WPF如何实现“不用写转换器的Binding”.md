@@ -305,7 +305,7 @@ public class XCommand : ICommand
 具体使用方法：
 ```cs
 
-// 参考语法
+    // 参考语法
     // 单路绑定：
     PlayStatus="{XBinding Path=IsSpeaking,Method=GetExpectPlayStatus}"
     // 多路绑定：
