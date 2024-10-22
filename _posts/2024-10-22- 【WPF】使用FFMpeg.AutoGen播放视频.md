@@ -28,7 +28,9 @@ categories: C# WPF
 1. 初始化解码上下文
 
       由于ffmpeg是非托管代码实现，其中的内存需要我们手动释放。为了方便的管理这些对象，我们自定义一个解码上下文的类，主要用于内存复用和释放。具体定义如下：
+      
 ```cs
+
 /// <summary>
 /// 解码上下文
 /// </summary>
@@ -152,6 +154,7 @@ public unsafe class MediaCodecContext
 
 
 ```cs
+
 /// <summary>        
 /// 打开文件，读取音/视频流，获取解码器，打开解码器
 /// </summary>
@@ -282,10 +285,13 @@ private unsafe bool InitializeAudioDecoder(AVCodecParameters* codecParameter)
     //音频暂不做实现
     return true;
 }
+
 ```
+
 3. 读取帧数据，并进行解码和转码
 
 ```cs
+
 /// <summary>
 /// 读取视频帧数据
 /// </summary>
@@ -373,12 +379,15 @@ public struct VideoFrame : IMediaFrame
     /// </summary>
     public FrameState State { get; set; }
 }
+
 ```
+
 4. 转码成可显示的数据格式
 
 大部分音视频数据解码出来后都是YUV格式的，我们需要将他们转码成BRGA格式，方便我们使用WPF进行渲染。
 
 ```cs
+
 /// <summary>
 /// 转码成BGRA
 /// </summary>
@@ -423,12 +432,14 @@ public unsafe byte[] CropFrameToPixels(AVFrame* srcFrame, int targetLineSize, In
     }
     return pixels;
 }
+
 ```
 5. 渲染播放
 
 在WPF中，我们可以通过使用WriteableBitmap来实现对BGRA数据格式的显示。
 
 ```cs
+
 //自定义播放器
 public MediaPlayer()
 {
@@ -477,6 +488,7 @@ private void Draw(VideoFrame data)
         }
     }
 }
+
 ```
 
 
@@ -485,6 +497,7 @@ private void Draw(VideoFrame data)
 要想视频动起来，我们就需要写一个循环，让他针对每一帧进行播放，示例代码如下：
 
 ```cs
+
 Task.Factory.StartNew(() =>
 {
     _decoder.Load(filename);
